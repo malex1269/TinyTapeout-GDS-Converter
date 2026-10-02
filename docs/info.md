@@ -17,4 +17,4 @@ Just run it.
 
 ## External hardware
 
-NONE.
+NO.
