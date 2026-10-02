@@ -28,7 +28,7 @@ module tb ();
 `endif
 
   // Replace tt_um_example with your module name:
-  tt_um_malex1269_PANTALLAAAVGA (
+  tt_um_malex1269_PANTALLAAVGA(
 
       // Include power ports for the Gate Level test:
 `ifdef GL_TEST
