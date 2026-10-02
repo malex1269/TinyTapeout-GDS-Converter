@@ -9,12 +9,12 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Just shows an old money type screen. 
+Just shows an old money type screen
 
 ## How to test
 
-Just run it. 
+Just run it
 
 ## External hardware
 
-NO.
+NO
