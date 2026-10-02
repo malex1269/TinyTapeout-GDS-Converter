@@ -13,7 +13,7 @@ Just shows an old money type screen.
 
 ## How to test
 
-Just runit. 
+Just run it. 
 
 ## External hardware
 
