@@ -1,42 +1,48 @@
 ![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
 
-# Tiny Tapeout Verilog Project Template
+# Rana Dorada Run
 
-- [Read the documentation for project](docs/info.md)
+An endless-runner game for VGA, designed in Verilog for fabrication on a [Tiny Tapeout](https://tinytapeout.com) chip.
 
-## What is Tiny Tapeout?
+A Panamanian golden frog (*rana dorada*) runs through the jungle. Jump over logs, bamboo and crabs, but stay on the ground when a toucan flies by. Every 100 points the game speeds up and the time of day changes: day, afternoon, sunset and night with stars. All characters and graphics are original.
 
-Tiny Tapeout is an educational project that aims to make it easier and cheaper than ever to get your digital and analog designs manufactured on a real chip.
+- Author: Martín Saldaña
+- Top module: `tt_um_malex1269_rana_dorada`
+- Clock: 25.175 MHz (VGA 640x480 @ 60 Hz)
+- [Full project documentation](docs/info.md)
 
-To learn more and get started, visit https://tinytapeout.com.
+## How it works
 
-## Set up your Verilog project
+The design has no frame buffer: every pixel is computed on the fly from the beam position, using small sprite ROMs (frog, log, crab, toucan) and procedural graphics (bamboo, parallax hills, scrolling ground, stars and a 7-segment-style score). The game state is updated once per frame, jumps follow a simple gravity model (hold for a high jump, tap for a low one), obstacles are chosen with an 8-bit LFSR, and collisions are detected pixel by pixel during the scan.
 
-1. Add your Verilog files to the `src` folder.
-2. Edit the [info.yaml](info.yaml) and update information about your project, paying special attention to the `source_files` and `top_module` properties. If you are upgrading an existing Tiny Tapeout project, check out our [online info.yaml migration tool](https://tinytapeout.github.io/tt-yaml-upgrade-tool/).
-3. Edit [docs/info.md](docs/info.md) and add a description of your project.
-4. Adapt the testbench to your design. See [test/README.md](test/README.md) for more information.
+## Controls and hardware
 
-The GitHub action will automatically build the ASIC files using [LibreLane](https://www.zerotoasiccourse.com/terminology/librelane/).
+| Pin | Function |
+|-----|----------|
+| `ui[0]` | Jump button (active high) |
+| `ui[4]` | Gamepad PMOD latch |
+| `ui[5]` | Gamepad PMOD clock |
+| `ui[6]` | Gamepad PMOD data |
+| `uo[7:0]` | TinyVGA PMOD (R, G, B, HSync, VSync) |
 
-## Enable GitHub actions to build the results page
+On the Gamepad PMOD, Up, A or B start the game and make the frog jump. A single push button on `ui[0]` works too.
 
-- [Enabling GitHub Pages](https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part)
+External hardware: TinyVGA PMOD and a VGA monitor, plus a Gamepad PMOD or a push button.
 
-## Resources
+## Source files
+
+- `src/project.v`: the game (top module).
+- `src/hvsync_generator.v`: VGA sync generator from the Tiny Tapeout VGA template.
+- `src/gamepad_pmod.v`: Gamepad PMOD driver by Pat Deegan (Apache-2.0).
+
+## Try it in the browser
+
+Open the Gamepad example in the [Tiny Tapeout VGA Playground](https://vga-playground.com/?preset=gamepad), replace `project.v` with the one in `src/`, enable gamepad mode and play with the Up arrow or the A/B keys.
+
+## About Tiny Tapeout
+
+Tiny Tapeout is an educational project that makes it easier and cheaper than ever to get digital and analog designs manufactured on a real chip. Learn more at https://tinytapeout.com.
 
 - [FAQ](https://tinytapeout.com/faq/)
 - [Digital design lessons](https://tinytapeout.com/digital_design/)
-- [Learn how semiconductors work](https://tinytapeout.com/siliwiz/)
 - [Join the community](https://tinytapeout.com/discord)
-- [Build your design locally](https://www.tinytapeout.com/guides/local-hardening/)
-
-## What next?
-
-- [Submit your design to the next shuttle](https://app.tinytapeout.com/).
-- Edit [this README](README.md) and explain your design, how it works, and how to test it.
-- Share your project on your social network of choice:
-  - LinkedIn [#tinytapeout](https://www.linkedin.com/search/results/content/?keywords=%23tinytapeout) [@TinyTapeout](https://www.linkedin.com/company/100708654/)
-  - Mastodon [#tinytapeout](https://chaos.social/tags/tinytapeout) [@matthewvenn](https://chaos.social/@matthewvenn)
-  - X (formerly Twitter) [#tinytapeout](https://twitter.com/hashtag/tinytapeout) [@tinytapeout](https://twitter.com/tinytapeout)
-  - Bluesky [@tinytapeout.com](https://bsky.app/profile/tinytapeout.com)
