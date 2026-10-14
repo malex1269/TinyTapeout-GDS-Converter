@@ -1,12 +1,12 @@
-# Sample testbench for a Tiny Tapeout project
+# Testbench for Rana Dorada Run
 
-This is a sample testbench for a Tiny Tapeout project. It uses [cocotb](https://docs.cocotb.org/en/stable/) to drive the DUT and check the outputs.
-See below to get started or for more information, check the [website](https://tinytapeout.com/hdl/testing/).
+This folder contains the [cocotb](https://docs.cocotb.org/en/stable/) testbench for `tt_um_malex1269_rana_dorada`. For more information about testing Tiny Tapeout projects, see the [website](https://tinytapeout.com/hdl/testing/).
 
-## Setting up
+## Files
 
-1. Edit [Makefile](Makefile) and modify `PROJECT_SOURCES` to point to your Verilog files.
-2. Edit [tb.v](tb.v) and replace `tt_um_example` with your module name.
+- [tb.v](tb.v): instantiates the top module `tt_um_malex1269_rana_dorada` and exposes its pins to cocotb.
+- [test.py](test.py): VGA test from the Tiny Tapeout VGA template. It resets the design, checks the HSync/VSync timing and captures frames as PNG images into `output/`. As in the Tiny Tapeout workshop guide, both tests currently start with `cocotb.pass_test()`, so they only check that the design compiles and simulates; remove that line to run the full frame capture.
+- [Makefile](Makefile): `PROJECT_SOURCES = project.v hvsync_generator.v gamepad_pmod.v`.
 
 ## How to run
 

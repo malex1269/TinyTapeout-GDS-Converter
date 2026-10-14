@@ -27,7 +27,7 @@ module tb ();
   wire VGND = 1'b0;
 `endif
 
-  // Replace tt_um_example with your module name:
+  // Top module of this project (must match top_module in info.yaml and src/project.v):
   tt_um_malex1269_rana_dorada user_project (
 
       // Include power ports for the Gate Level test:
